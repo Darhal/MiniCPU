@@ -1,19 +1,19 @@
 /*
  * -------------------------- TP du module Archi -------------------------
  *
- * ATTENTION : un outil de détection de plagiat logiciel sera utilisé lors de la correction, vous avez donc tout intérêt à effectuer un travail PERSONNEL
+ * ATTENTION : un outil de dÃ©tection de plagiat logiciel sera utilisÃ© lors de la correction, vous avez donc tout intÃ©rÃªt Ã  effectuer un travail PERSONNEL
  *
- * Un mot/registre de NBITS bits (par défaut NBITS=16) est représenté par un tableau d'entiers égaux à 0 ou 1.
- * Une ALU est représentée par une structure ALU, avec registre accumulateur et registre d'état.
- * Un CPU (très très simplifié) est représenté par une ALU et quelques registres nécessaires pour stocker les résultats intermédiaires.
+ * Un mot/registre de NBITS bits (par dÃ©faut NBITS=16) est reprÃ©sentÃ© par un tableau d'entiers Ã©gaux Ã  0 ou 1.
+ * Une ALU est reprÃ©sentÃ©e par une structure ALU, avec registre accumulateur et registre d'Ã©tat.
+ * Un CPU (trÃ¨s trÃ¨s simplifiÃ©) est reprÃ©sentÃ© par une ALU et quelques registres nÃ©cessaires pour stocker les rÃ©sultats intermÃ©diaires.
  *
- * Certaines fonctions vous sont fournies, d'autres sont à implanter ou à compléter, de préférence dans l'ordre où eles sont indiquées.
- * Il vous est fortement conseillé de lire attentivement l'ensemble des commentaires.
+ * Certaines fonctions vous sont fournies, d'autres sont Ã  implanter ou Ã  complÃ©ter, de prÃ©fÃ©rence dans l'ordre oÃ¹ eles sont indiquÃ©es.
+ * Il vous est fortement conseillÃ© de lire attentivement l'ensemble des commentaires.
  *
- * Parmi les opérations arithmétiques et logiques, seules 4 opérations de base sont directement fournies par l'ALU, les autres doivent être décrites comme des algorithmes
- * travaillant à l'aide des opérateurs de base de l'ALU simplifiée et pouvant utiliser les registres du CPU.
+ * Parmi les opÃ©rations arithmÃ©tiques et logiques, seules 4 opÃ©rations de base sont directement fournies par l'ALU, les autres doivent Ãªtre dÃ©crites comme des algorithmes
+ * travaillant Ã  l'aide des opÃ©rateurs de base de l'ALU simplifiÃ©e et pouvant utiliser les registres du CPU.
  *
- * La fonction main() vous permet de tester au fur et à mesure les fonctions que vous implantez.
+ * La fonction main() vous permet de tester au fur et Ã  mesure les fonctions que vous implantez.
  *
  * ----------------------------------------------------------------------------------------------
  *
@@ -25,13 +25,13 @@
 
 #pragma warning(disable:4996)
 
-#define NBITS 16  // attention, votre programme doit pouvoir être adapté à d'autres tailles juste en modifiant la valeur de cette constante
+#define NBITS 16  // attention, votre programme doit pouvoir Ãªtre adaptÃ© Ã  d'autres tailles juste en modifiant la valeur de cette constante
  // en ayant toujours NBITS < 32
 
 char* toString(int* word);
 
 /////////////////////////////////////////////////////////
-// définition de types
+// dÃ©finition de types
 /////////////////////////////////////////////////////////
 
 typedef struct {
@@ -51,7 +51,7 @@ typedef struct {
 /////////////////////////////////////////////////////////
 
 /*
- * allocation d'un mot entier de NBITS bits initialisé à 0
+ * allocation d'un mot entier de NBITS bits initialisÃ© Ã  0
  */
 int* word() {
 	int* tab;
@@ -64,16 +64,16 @@ int* word() {
 }
 
 /*
- * Initialisation du mot (mot de NBITS bits, codant un entier en Cà2) avec une valeur entière.
+ * Initialisation du mot (mot de NBITS bits, codant un entier en CÃ 2) avec une valeur entiÃ¨re.
  */
 void setValue(int* word, int n) {
 	int n_low = n & 0x7FFFFFFF;
-	// revient à mettre à 0 le bit de poids fort en 32 bits
+	// revient Ã  mettre Ã  0 le bit de poids fort en 32 bits
 	// on peut alors travailler sur la partie positive du codage de n
-	// remarque : si n est bien codable en Ca2 sur NBITS, et si n est négatif, 
-	// on récupère quand même le codage de n sur NBITS en Ca2 en prenant les NBITS de 
+	// remarque : si n est bien codable en Ca2 sur NBITS, et si n est nÃ©gatif, 
+	// on rÃ©cupÃ¨re quand mÃªme le codage de n sur NBITS en Ca2 en prenant les NBITS de 
 	// poids faible de n_low
-	// à compléter
+	// Ã  complÃ©ter
 	int i, c;
 	char neg = 0;
 	if (n < 0) { neg = 1; n = -n; }
@@ -87,8 +87,8 @@ void setValue(int* word, int n) {
 	if (neg) {
 		char dontChange = 0;
 		for (i = 0; i < NBITS; i++) {
-			word[i] = (word[i] == 0) ? 1 : 0; // Cà1
-			if (!dontChange) { // Cà2
+			word[i] = (word[i] == 0) ? 1 : 0; // CÃ 1
+			if (!dontChange) { // CÃ 2
 				if (word[i] == 1)
 					word[i] = 0;
 				else {
@@ -101,7 +101,7 @@ void setValue(int* word, int n) {
 }
 
 /*
- * instanciation d'un mot de NBITS bits initialisé avec la valeur n
+ * instanciation d'un mot de NBITS bits initialisÃ© avec la valeur n
  */
 int* initWord(int n) {
 	int* tab = word();
@@ -110,10 +110,10 @@ int* initWord(int n) {
 }
 
 /*
- * Initialisation du mot (mot de NBITS bits) par recopie des bits du mot en paramètre.
+ * Initialisation du mot (mot de NBITS bits) par recopie des bits du mot en paramÃ¨tre.
  */
 void copyValue(int* word, int* src) {
-	// à compléter
+	// Ã  complÃ©ter
 	int i;
 	for(i=0;i<NBITS;i++){
 		word[i] = src[i];
@@ -121,7 +121,7 @@ void copyValue(int* word, int* src) {
 }
 
 /*
- * instanciation d'un mot de NBITS bits initialisé par recopie d'un mot
+ * instanciation d'un mot de NBITS bits initialisÃ© par recopie d'un mot
  */
 int* copyWord(int* src) {
 	int* tab = word();
@@ -156,10 +156,10 @@ CPU initCPU() {
 /////////////////////////////////////////////////////////
 
 /*
- * Retourne la valeur entière signée représentée par le mot (complément à 2).
+ * Retourne la valeur entiÃ¨re signÃ©e reprÃ©sentÃ©e par le mot (complÃ©ment Ã  2).
  */
 int intValue(int* word) {
-	// à compléter
+	// Ã  complÃ©ter
 	int res = 0;
 	int i = 0;
 	int* InitialWorld = word;
@@ -173,7 +173,7 @@ int intValue(int* word) {
 }
 
 /*
- * Retourne une chaîne de caractères décrivant les NBITS bits
+ * Retourne une chaÃ®ne de caractÃ¨res dÃ©crivant les NBITS bits
  */
 char* toString(int* word) {
 	int i, j = 0;
@@ -187,7 +187,7 @@ char* toString(int* word) {
 }
 
 /*
- * Retourne l'écriture des indicateurs associés à l'ALU.
+ * Retourne l'Ã©criture des indicateurs associÃ©s Ã  l'ALU.
  */
 char* flagsToString(ALU alu) {
 	char *string = (char*)malloc(10 * sizeof(char));
@@ -196,20 +196,20 @@ char* flagsToString(ALU alu) {
 }
 
 /*
- * affiche à l'écran le contenu d'une ALU
+ * affiche Ã  l'Ã©cran le contenu d'une ALU
  */
 void printing(ALU alu) {
-	// à compléter
+	// Ã  complÃ©ter
 	printf("accu = %s - ", toString(alu.accu));
 	printf("flags = %s\n", flagsToString(alu));
 }
 
 /////////////////////////////////////////////////////////
-// fonctions de manipulations élémentaires
+// fonctions de manipulations Ã©lÃ©mentaires
 /////////////////////////////////////////////////////////
 
 /*
- * Mise à la valeur b du bit spécifié dans le mot
+ * Mise Ã  la valeur b du bit spÃ©cifiÃ© dans le mot
  */
 void set(int* word, int bitIndex, int b) {
 	if ((bitIndex > NBITS - 1) || (bitIndex < 0))
@@ -218,7 +218,7 @@ void set(int* word, int bitIndex, int b) {
 }
 
 /*
- * Retourne la valeur du bit spécifié dans le mot
+ * Retourne la valeur du bit spÃ©cifiÃ© dans le mot
  */
 int get(int* word, int bitIndex) {
 	if ((bitIndex > NBITS - 1) || (bitIndex < 0))
@@ -227,10 +227,10 @@ int get(int* word, int bitIndex) {
 }
 
 /*
- * Positionne l'indicateur ZF en fonction de l'état de l'accumulateur
+ * Positionne l'indicateur ZF en fonction de l'Ã©tat de l'accumulateur
  */
 void setZ(ALU alu) {
-	// à compléter
+	// Ã  complÃ©ter
 	int i = 0;
 	while (i < NBITS) {
 		if (get(alu.accu, i) != 0) {
@@ -257,15 +257,15 @@ void setN(ALU alu)
 	alu.flags[3] = alu.accu[NBITS-1];
 }
 /////////////////////////////////////////////////////////
-// opérateurs de base de l'ALU
-// IMPORTANT : les indicateurs doivent être mis à jour
+// opÃ©rateurs de base de l'ALU
+// IMPORTANT : les indicateurs doivent Ãªtre mis Ã  jour
 /////////////////////////////////////////////////////////
 
 /*
- * Stocke le paramètre dans le registre accumulateur
+ * Stocke le paramÃ¨tre dans le registre accumulateur
  */
 void pass(ALU alu, int* B) {
-	// à compléter
+	// Ã  complÃ©ter
 	copyValue(alu.accu, B);
 	setZ(alu);
 	setC(alu, 0);
@@ -274,10 +274,10 @@ void pass(ALU alu, int* B) {
 }
 
 /*
- * Effectue un NAND (NON-ET) entre le contenu de l'accumulateur et le paramètre.
+ * Effectue un NAND (NON-ET) entre le contenu de l'accumulateur et le paramÃ¨tre.
  */
 void nand(ALU alu, int* B) {
-	// à compléter
+	// Ã  complÃ©ter
 	int i = 0;
 	while (i < NBITS) {
 		int bitAccu = get(alu.accu, i);
@@ -292,10 +292,10 @@ void nand(ALU alu, int* B) {
 }
 
 /*
- * Décale le contenu de l'accumulateur de 1 bit vers la droite
+ * DÃ©cale le contenu de l'accumulateur de 1 bit vers la droite
  */
 void shift(ALU alu) {
-	// à compléter
+	// Ã  complÃ©ter
 	int temp[NBITS];
 	copyValue(temp, alu.accu);
 	int i = 0;
@@ -316,18 +316,18 @@ void shift(ALU alu) {
  */
 int* fullAdder(int a, int b, int c_in) {
 	int* res = (int*)malloc(2 * sizeof(int));
-	// à compléter
+	// Ã  complÃ©ter
 	res[0] = (a + b + c_in) % 2;			// res
 	res[1] = ((a + b + c_in) - res[0]) / 2;	// carry
 	return res;
 }
 
 /*
- * Additionne le paramètre au contenu de l'accumulateur (addition entière Cà2).
- * Les indicateurs sont positionnés conformément au résultat de l'opération.
+ * Additionne le paramÃ¨tre au contenu de l'accumulateur (addition entiÃ¨re CÃ 2).
+ * Les indicateurs sont positionnÃ©s conformÃ©ment au rÃ©sultat de l'opÃ©ration.
  */
 void add(ALU alu, int* B) {
-	// à compléter
+	// Ã  complÃ©ter
 	int c = 0; // carry
 	int i = 0; // current bit
 	int lastCarry = 0; // last carry
@@ -352,14 +352,14 @@ void add(ALU alu, int* B) {
 }
 
 ////////////////////////////////////////////////////////////////////
-// Opérations logiques :
+// OpÃ©rations logiques :
 ////////////////////////////////////////////////////////////////////
 
 /*
- * Négation.
+ * NÃ©gation.
  */
 void not(CPU cpu) {
-	// à compléter
+	// Ã  complÃ©ter
 	nand(cpu.alu, cpu.alu.accu); // not(accu)=nand(accu, accu)
 }
 
@@ -367,7 +367,7 @@ void not(CPU cpu) {
  * Et.
  */
 void and(CPU cpu, int* B) {
-	// à compléter
+	// Ã  complÃ©ter
 	nand(cpu.alu, B);	//alu.accu = nand(alu.accu, B);
 	not(cpu);			//and(alu.accu, B)=not(nand(alu.accu, B));
 }
@@ -376,7 +376,7 @@ void and(CPU cpu, int* B) {
  * Ou.
  */
 void or (CPU cpu, int* B) {
-	// à compléter
+	// Ã  complÃ©ter
 	copyValue(cpu.R0, cpu.alu.accu);	// take copy of those
 	copyValue(cpu.R1, B);
 	nand(cpu.alu, cpu.R0);				// nand(alu.accu, alu.accu)
@@ -392,7 +392,7 @@ void or (CPU cpu, int* B) {
  * Xor.
  */
 void xor(CPU cpu, int* B) { // or( and( not(a), b), and( a, not(b) ) )  (Uses R0, R1,R2)
-	// à compléter
+	// Ã  complÃ©ter
 	copyValue(cpu.R0, cpu.alu.accu);		// R0 <- accu
 	copyValue(cpu.R2, B);					// R2 <- B
 	not(cpu);								// not(cpu.alu.accu)
@@ -409,14 +409,14 @@ void xor(CPU cpu, int* B) { // or( and( not(a), b), and( a, not(b) ) )  (Uses R0
 }
 
 /*
- * Décale le receveur de |n| positions.
- * Le décalage s'effectue vers la gauche si n>0 vers la droite dans le cas contraire.
- * C'est un décalage logique (pas de report du bit de signe dans les positions
- * libérées en cas de décalage à droite).
- * L'indicateur CF est positionné avec le dernier bit "perdu".
+ * DÃ©cale le receveur de |n| positions.
+ * Le dÃ©calage s'effectue vers la gauche si n>0 vers la droite dans le cas contraire.
+ * C'est un dÃ©calage logique (pas de report du bit de signe dans les positions
+ * libÃ©rÃ©es en cas de dÃ©calage Ã  droite).
+ * L'indicateur CF est positionnÃ© avec le dernier bit "perdu".
  */
 void logicalShift(CPU cpu, int n) {
-	// à compléter
+	// Ã  complÃ©ter
 	int i = n;
 	while (i != 0) {
 		if (n > 0) {
@@ -430,14 +430,14 @@ void logicalShift(CPU cpu, int n) {
 }
 
 /////////////////////////////////////////////////////////
-// Opérations arithmétiques entières
+// OpÃ©rations arithmÃ©tiques entiÃ¨res
 /////////////////////////////////////////////////////////
 
 /*
- * Opposé.
+ * OpposÃ©.
  */
 void opp(CPU cpu) { // Uses R2
-	// à compléter
+	// Ã  complÃ©ter
 	not(cpu);
 	setValue(cpu.R2, 1);
 	add(cpu.alu, cpu.R2);
@@ -451,7 +451,7 @@ void opp(CPU cpu) { // Uses R2
  * Soustraction.
  */
 void sub(CPU cpu, int* B) { // Uses R0
-	// à compléter
+	// Ã  complÃ©ter
 	copyValue(cpu.R0, cpu.alu.accu);	// R0 <- acuu
 	pass(cpu.alu, B);					// accu <- B
 	opp(cpu);							// opp(cpu)
@@ -466,7 +466,7 @@ void sub(CPU cpu, int* B) { // Uses R0
  * Multiplication.
  */
 void mul(CPU cpu, int* B) {
-	// à compléter
+	// Ã  complÃ©ter
 	setValue(cpu.R0, 0);
 	copyValue(cpu.R1, cpu.alu.accu);
 	int i;
@@ -491,8 +491,8 @@ void mul(CPU cpu, int* B) {
 int main(int argc, char *argv[]) {
 
 	/*
-	  Ce programme est fourni à titre d'exemple pour permettre de tester simplement vos fonctions.
-	  Il vous est bien entendu possible de le modifier/compléter, ou encore d'écrire vos propres fonctions de test.
+	  Ce programme est fourni Ã  titre d'exemple pour permettre de tester simplement vos fonctions.
+	  Il vous est bien entendu possible de le modifier/complÃ©ter, ou encore d'Ã©crire vos propres fonctions de test.
 	*/
 
 	int* operand;
